@@ -4,15 +4,15 @@
         <x-slot:actions>
             <x-mary-menu class="text-blue-800 hidden md:static md:grid grid-flow-col  md:gap-12 activate-by-route">
                 <x-mary-menu-item title="Home" link="/"/>
-                <x-mary-menu-item title="Prescriptions" link="###"/>
-                <x-mary-menu-item title="About" link="###"/>
+                <x-mary-menu-item title="Prescriptions" link="/prescriptions"/>
+                <x-mary-menu-item title="About" link="/about"/>
                 <x-mary-menu-item>
                     {{-- Brand --}}
                     <div class="absolute top-[-10px] left-0 h-[60px] w-[70px]">
-                        <img class="" src="{{asset('site-imgs/healhithubLogo.png')}}" alt="evres-logo" class=""/>
+                        <img src="{{asset('site-imgs/healhithubLogo.png')}}" alt="evres-logo"/>
                     </div>
                 </x-mary-menu-item> 
-                <x-mary-menu-item title="Alumni-Consultancy" link="###"/>
+                <x-mary-menu-item title="Alumni-Consultancy" link="/alumni-consultancy"/>
                 <x-mary-button label="Login" link="login" responsive  wire:navigate 
                 class="border-solid border-[3px] bg-white border-blue-400  text-blue-400 rounded-3xl px-[20px] py-0 btn-ghost shadow-inner hover:text-white"/>
                 <x-mary-button label="Sign-up" link="register" responsive  wire:navigate 

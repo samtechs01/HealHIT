@@ -95,7 +95,8 @@
                 {{ $slot }}
             </x-slot:content>
         </x-mary-main>
-    
+
+        <livewire:footer/>  
         {{--  TOAST area --}}
         <x-mary-toast />
     </body>

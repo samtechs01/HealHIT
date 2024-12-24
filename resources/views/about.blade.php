@@ -13,16 +13,10 @@
     </head>
     <body class="font-body antialiased" x-data >
         <livewire:header/> 
+        <livewire:subhero-section title="Who is our client?"/> 
         
         <div class="grid justify-items-center grid-flow-row gap-32">
-            <livewire:hero-section/> 
-            <livewire:trending-section/>
-            {{--  
-            <livewire:why-choose-us/> 
-            <livewire:testimonials-section/>
-            <livewire:projects-list/>
-            <livewire:team-section/> 
-            --}}
+            
         </div>
         
         <livewire:footer/> 

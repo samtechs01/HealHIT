@@ -26,6 +26,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/prescriptions', function () {
+    return view('prescriptions');
+});
+Route::get('/about', function () {
+    return view('about');
+});
+Route::get('/alumni-consultancy', function () {
+    return view('alumni-consultancy');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

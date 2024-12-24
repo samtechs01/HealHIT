@@ -70,10 +70,10 @@
                 <x-mary-menu x-show="open" x-on:click.outside="open = false"
                  class="absolute z-index-90 right-3 top-8 grid grid-flow-row 
                  w-[30vw] md:hidden">
-                    <x-mary-menu-item title="Home" link="###"/>
-                    <x-mary-menu-item title="Prescriptions" link="###"/>
-                    <x-mary-menu-item title="About" link="###"/>
-                    <x-mary-menu-item title="Alumni-Consultancy" link="###"/>
+                    <x-mary-menu-item title="Home" link="/dashboard"/>
+                    <x-mary-menu-item title="Prescriptions" link="/prescriptions"/>
+                    <x-mary-menu-item title="About" link="/about"/>
+                    <x-mary-menu-item title="Alumni-Consultancy" link="/alumni-consultancy"/>
                     @if(auth()->user())
 
                     @else
@@ -142,6 +142,8 @@
             <x-slot:content>
                 {{ $slot }}
             </x-slot:content>
+
+            
         </x-mary-main>
     
         {{--  TOAST area --}}
