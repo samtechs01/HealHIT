@@ -109,7 +109,6 @@
                 <x-mary-menu activate-by-route>
                     @can('SuperAdmin')
                     <x-mary-menu-sub title="Admin" icon="o-envelope">
-                        <x-mary-menu-item title="Dashboard" icon="o-home" link="/dashboard/admin" wire:navigate />
                         <x-mary-menu-item title="Show Permissons" icon="o-envelope" link="/dashboard/admin/permissions" wire:navigate/>
                         <x-mary-menu-item title="Add Permisson" icon="o-envelope" link="/dashboard/admin/add-permission" wire:navigate />
                         <x-mary-menu-item title="Add Roles" icon="o-envelope" link="/dashboard/admin/add-role" wire:navigate />
@@ -120,7 +119,6 @@
                     @endcan
                     @can('Product.Create')
                     <x-mary-menu-sub title="Product" icon="o-envelope">
-                        <x-mary-menu-item title="Dashboard" icon="o-home" link="###" wire:navigate />
                         <x-mary-menu-item title="Product Proposal" icon="o-envelope" link="/dashboard/product/add-proposal" wire:navigate/>
                         <x-mary-menu-item title="Initiated Project" icon="o-envelope" link="/dashboard/product/initiated-projects" wire:navigate />
                         <x-mary-menu-item title="Publishing" icon="o-envelope" link="/dashboard/product/publishing" wire:navigate />
@@ -128,7 +126,6 @@
                     @endcan
                     @can('Product.Approve')
                     <x-mary-menu-sub title="HITAdmin" icon="o-envelope">
-                        <x-mary-menu-item title="Dashboard" icon="o-home" link="###" wire:navigate />
                         <x-mary-menu-item title="Proposals" icon="o-envelope" link="/dashboard/admin/show-proposals" wire:navigate/>
                         <x-mary-menu-item title="Products" icon="o-envelope" link="/dashboard/admin/show-projects" wire:navigate />
                     </x-mary-menu-sub>
