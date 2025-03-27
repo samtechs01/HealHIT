@@ -13,7 +13,9 @@
                 <div>
                     <x-mary-table :headers="$stagedProductHeaders" :rows="$draftProductsMap" separator>
                         @scope('cell_product_src',$product)
-                        <img src="/{{$product->product_src}}" alt="featured img" class="w-12 h-12 rounded-3xl">
+                        <a href="/dashboard/product/project-blog/{{$product->id}}" class="cursor-pointer">
+                            <img src="/{{$product->product_src}}" alt="featured img" class="w-12 h-12 rounded-3xl">
+                        </a>
                         @endscope
                         @scope('cell_custodian',$product)
                         <div class="text-blue-600">{{$product->productProposal->student->name}}</div> 
@@ -32,7 +34,9 @@
                 <div>
                     <x-mary-table :headers="$stagedProductHeaders" :rows="$completedProductsMap" separator>
                         @scope('cell_product_src',$product)
-                        <img src="/{{$product->product_src}}" alt="featured img" class="w-12 h-12 rounded-3xl">
+                        <a href="/dashboard/product/project-blog/{{$product->id}}" class="cursor-pointer">
+                            <img src="/{{$product->product_src}}" alt="featured img" class="w-12 h-12 rounded-3xl">
+                        </a>
                         @endscope
                         @scope('cell_custodian',$product)
                         <div class="text-blue-600">{{$product->productProposal->student->name}}</div> 
@@ -52,7 +56,9 @@
                 <div>
                     <x-mary-table :headers="$stagedProductHeaders" :rows="$validatedProductsMap" separator>
                         @scope('cell_product_src',$product)
-                        <img src="/{{$product->product_src}}" alt="featured img" class="w-12 h-12 rounded-3xl">
+                        <a href="/dashboard/product/project-blog/{{$product->id}}" class="cursor-pointer">
+                            <img src="/{{$product->product_src}}" alt="featured img" class="w-12 h-12 rounded-3xl">
+                        </a>
                         @endscope
                         @scope('cell_custodian',$product)
                         <div class="text-blue-600">{{$product->productProposal->student->name}}</div> 

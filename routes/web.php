@@ -79,7 +79,7 @@ Route::prefix('/dashboard/product')->middleware('role:Admin|Student|SuperAdmin')
     Route::get('project-blog/{productId}',ProductBlog::class);
 });
 Route::prefix('/product')->middleware('role:Student|Admin|SuperAdmin')->group(function(){
-    Route::get('project-blog/{productId}',ProductBlog::class);
+    Route::get('project-blog/{productId}',ProductBlog::class)->name('product-blog');
 });
 
 #Route::get('/implicit-binding/',ImplicitBinding::class);

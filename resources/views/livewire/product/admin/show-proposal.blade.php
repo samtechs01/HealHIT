@@ -13,9 +13,7 @@
                 <div>
                     <x-mary-table :headers="$proposalsHeaders" :rows="$unverifiedProposalsMap" separator>
                         @scope('cell_form',$proposal)
-                        <a href="/{{$proposal['form']}}" target="_blank" class="text-blue-600">View</a> 
-                        <button wire:click="download('{{$proposal['form']}}')">Download</button>
-                        
+                        <button wire:click="download('{{$proposal['form']}}')" class="text-blue-600">Download</button>
                         @endscope
 
                         @scope('cell_status',$proposal)
@@ -32,7 +30,10 @@
                 <div>
                     <x-mary-table :headers="$proposalsHeaders" :rows="$verifiedProposalsMap" separator>
                         @scope('cell_form',$proposal)
-                        <a href="/{{$proposal['form']}}" target="_blank" class="text-blue-600">View</a> 
+                        <button wire:click="download('{{$proposal['form']}}')" class="text-blue-600">Download</button>
+                        @endscope
+                        @scope('cell_status',$proposal)
+                        <div class="bg-gray-400 text-white rounded-3xl grid justify-center py-2">Assessed</div>
                         @endscope
                     </x-mary-table>
                 </div>

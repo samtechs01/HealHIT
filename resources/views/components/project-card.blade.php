@@ -53,16 +53,16 @@
                 {{$category}}
             </div>
 
-            <div class="col-span-2 text-[14px] align-self-center">
-                <span>Project Status:</span> 
+            <div class="col-span-2  text-[12px] align-self-center">
+                <span class="block text-[14px] grid justify-center">Project Status:</span> 
                 @if ($progress==="CANCELLED")
-                    <span class="bg-zinc-400 text-white rounded-3xl px-5">{{$progress}}</span>
+                    <span class="bg-zinc-400 text-white rounded-3xl px-5 grid justify-center">{{$progress}}</span>
                 @elseif($progress==="WITHDRAWN")
-                    <span class="bg-red-600 text-white rounded-3xl px-5">{{$progress}}</span>
+                    <span class="bg-red-600 text-white rounded-3xl px-5 grid justify-center">{{$progress}}</span>
                 @elseif($progress==="SENT")
-                    <span class="bg-blue-600 text-white rounded-3xl px-5">{{$progress}}</span>
+                    <span class="bg-blue-600 text-white rounded-3xl px-5 grid justify-center">{{$progress}}</span>
                 @else
-                    <span class="bg-amber-400 text-white rounded-3xl px-5">{{$progress}}</span>
+                    <span class="bg-amber-400 text-white rounded-3xl px-5 grid justify-center">{{$progress}}</span>
                 @endif
             </div>
         </div>

@@ -26,7 +26,7 @@ class InitiateProject extends Component
 
     public $custodianName, $custodianID, $proposalID, $title, $description, $product_src;
     public $is_complete, $is_validated, $to_market, $featuredImageObj;
-    public $initiationDate, $proposalId;
+    public $initiationDate, $proposalId, $product_cat;
 
     protected $rules=[
         'title'=>['required'],
@@ -37,9 +37,8 @@ class InitiateProject extends Component
     public function mount($proposalID)
     {
         $this->getCustodianDetail($proposalID);
+        $this->product_cat=null;
     }
-
-
 
     public function getProductDetailMap()
     {
@@ -65,10 +64,10 @@ class InitiateProject extends Component
             'title'=>$this->title,
             'description'=>$this->description,
             'product_src'=>$this->product_src,
-            'product_category'=>"UNCATEGORIZED",
+            'product_category'=>$this->product_cat??"UNCATEGORIZED",
             'is_complete'=>false,
             'is_validated'=>false,
-            'to_market'=>"DRAFT"
+            'to_market'=>"AWAITING ASSESSMENT"
         ]);
         $this->success('Product project initiated successfully',position:'toast-bottom');
         //need for a delay

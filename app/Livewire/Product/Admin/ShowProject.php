@@ -59,7 +59,7 @@ class ShowProject extends BaseComponent
 
     public function getdraftProductsMap()
     {
-        $draftProducts = Product::with('productProposal')->where('to_market','DRAFT')->get();
+        $draftProducts = Product::with('productProposal')->where('to_market','AWAITING ASSESSMENT')->get();
         return $draftProducts;
     }
 

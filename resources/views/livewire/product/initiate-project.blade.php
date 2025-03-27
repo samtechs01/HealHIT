@@ -20,12 +20,17 @@
 
         {{--Title--}}
         <div  class="col-span-3">
-            <x-mary-input placeholder="Product Name"  wire:model.live="title" type="text"
+            <x-mary-input hint="Product Name"  wire:model.live="title" type="text"
             class="bg-gray-50 border-none hover:border-blue-800 rounded-md text-zinc-400"/>
         </div>
         {{--Description--}}
         <div class="col-span-3">
-            <x-mary-input placeholder="Project Description"  wire:model.live="description" type="text"
+            <x-mary-input hint="Project Description"  wire:model.live="description" type="text"
+            class="bg-gray-50 border-none hover:border-blue-800 rounded-md text-zinc-400"/>
+        </div>
+        {{--Category--}}
+        <div class="col-span-3">
+            <x-mary-input hint="Project Category"  wire:model.live="product_cat" type="text"
             class="bg-gray-50 border-none hover:border-blue-800 rounded-md text-zinc-400"/>
         </div>
         {{--Profile Image--}}

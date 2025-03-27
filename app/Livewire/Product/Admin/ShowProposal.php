@@ -5,6 +5,7 @@ namespace App\Livewire\Product\Admin;
 use App\Livewire\BaseComponent;
 use App\Models\ProductProposal;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -22,7 +23,7 @@ class ShowProposal extends BaseComponent
 
     public function mount()
     {
-        $this->user=auth()->user();
+        $this->user=Auth::user();//auth->user()
         $this->studentsMap=$this->getStudentsMap();
         $this->unverifiedProposalsMap=$this->getUnverifiedProposalsMap();
         $this->verifiedProposalsMap=$this->getVerifiedProposalsMap();

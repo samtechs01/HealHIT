@@ -2,10 +2,13 @@
 
 namespace App\Livewire\Product;
 
+use App\Models\Comment;
 use App\Models\Criteria;
 use App\Models\CriteriaProduct;
 use App\Models\Methodology;
 use App\Models\Product;
+use App\Models\ProductProposal;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Mary\Traits\Toast;
 
@@ -16,6 +19,7 @@ class ProductBlog extends Component
     public $productId, $product;
     public $selectedCriterionId, $criterionVal;
     public $criteriaDefinitions ,$criteriaMap;
+    public $messageContent, $user, $messages=[];
 
     protected $rules=[
         'selectedCriterionId'=>['required'],
@@ -30,9 +34,11 @@ class ProductBlog extends Component
 
     private function loadData($productId)
     {
+        $this->user=Auth::user();
         $this->product=$this->getProduct($productId);
         $this->criteriaDefinitions = $this->getCriteriaDefinitions();
         $this->criteriaMap=$this->getCriteriaMap();
+        $this->messages=$this->getMessages();
     }
 
     public function getProduct($productId)
@@ -51,13 +57,26 @@ class ProductBlog extends Component
     public function addCriterionProduct()
     {
         $this->validate();
-        dd($this->criterionVal);
-        CriteriaProduct::create([
-            'product_id'=>$this->productId,
-            'criteria_id'=>$this->selectedCriterionId,
-            'criteria_val'=>$this->criterionVal,
-        ]);
-        $this->success('Criterion definition successfully added', position:'toast-bottom');
+        $productCriterionExists=CriteriaProduct::where('product_id',$this->productId)->where('criteria_id',$this->selectedCriterionId)->first();
+        if(!$productCriterionExists)
+        {
+            CriteriaProduct::create([
+                'product_id'=>$this->productId,
+                'criteria_id'=>$this->selectedCriterionId,
+                'criteria_val'=>$this->criterionVal,
+            ]);
+            $this->success('Criterion definition successfully added', position:'toast-bottom');
+        
+        }else{
+            $productCriterionExists->update([
+                'product_id'=>$this->productId,
+                'criteria_id'=>$this->selectedCriterionId,
+                'criteria_val'=>$this->criterionVal,
+            ]);
+            $productCriterionExists->save();
+            $this->success('Criterion definition successfully updated', position:'toast-bottom');
+        
+        }
         $this->criteriaDefinitions = $this->getCriteriaDefinitions();
     }
 
@@ -99,6 +118,37 @@ class ProductBlog extends Component
             }
         );
         return $map;
+    }
+
+    public function addMessageTo()
+    {
+        $this->validate([
+            'messageContent'=>['required']
+        ]);
+        $product=Product::with('productProposal')->find($this->productId);
+        if($product->productProposal->student_id != $this->user->id)
+        {
+            $comment=Comment::create([
+                'product_id'=>$this->productId,
+                'comment_by'=>$product->productProposal->supervisor_id,
+                'comment_to'=>$this->user->id,
+                'content'=>'Supervisor: '.$this->messageContent,
+            ]);
+        }else{     
+            $comment=Comment::create([
+                'product_id'=>$this->productId,
+                'comment_by'=>$this->user->id,
+                'comment_to'=>$product->productProposal->supervisor_id,
+                'content'=>'Me: '.$this->messageContent,
+            ]);
+        }
+        $this->success('Message successfully sent');
+        return redirect('/dashboard');
+    }
+
+    public function getMessages()
+    {
+        return Comment::where('product_id',$this->productId)->get()->toArray();
     }
 
     public function render()
