@@ -1,20 +1,11 @@
 <div class="justify-self-start w-[70vw]">
     {{-- Only Assigns A Role To A User --}}
     <div class="pb-5 justify-self-center">
-        <x-page-heading textA="HIT HUB" textB="Research Pool"/>
-        <div class="grid justify-self-center">List Of The HIT HUB Product Proposal</div>
+        <x-page-heading textA="Research" textB="Pool"/>
+        <div class="grid justify-self-center">List of Product Proposal</div>
     </div>
     <div>
         <x-mary-tabs wire:model.live="selectedProposalSeq">
-            <x-mary-tab name="allProposals">
-                <x-slot:label>
-                    Student Proposals
-                </x-slot:label>
-                <div>
-                    <x-mary-table :headers="$studentHeaders" :rows="$studentsMap" separator/>
-                </div>
-            </x-mary-tab>
-
             <x-mary-tab name="unverifiedProposals">
                 <x-slot:label>
                     Unverified Proposals
@@ -23,6 +14,8 @@
                     <x-mary-table :headers="$proposalsHeaders" :rows="$unverifiedProposalsMap" separator>
                         @scope('cell_form',$proposal)
                         <a href="/{{$proposal['form']}}" target="_blank" class="text-blue-600">View</a> 
+                        <button wire:click="download('{{$proposal['form']}}')">Download</button>
+                        
                         @endscope
 
                         @scope('cell_status',$proposal)
@@ -44,6 +37,7 @@
                     </x-mary-table>
                 </div>
             </x-mary-tab>
+
         </x-mary-tabs>
 
     </div>

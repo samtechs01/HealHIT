@@ -1,4 +1,4 @@
-@props(['id', 'img', 'title', 'description', 'category', 'progress'])
+@props(['id', 'img', 'title', 'description', 'category', 'progress', 'completionBar'])
 
 <div class="grid grid-flow-col grid-cols-8 gap-10 mb-[60px]">
 
@@ -18,15 +18,33 @@
                     <x-mary-button icon="m-eye" class="w-12 h-4 bg-blue-600 hover:-blue-600 text-white cursor-pointer rounded-3xl" wire:navigate link="/dashboard/product/project-blog/{{$id}}"/>
             
                 </div>
+                @if($completionBar===100)
                 <div>
                     <x-mary-button icon="s-check" class="w-12 h-4 bg-green-600 hover:bg-green-600 text-white cursor-pointer rounded-3xl" wire:navigate link="/dashboard/product/complete-project/{{$id}}"/>
                 </div>
+                @endif
+
             </div>   
         </div>
 
         {{--Project Description--}}
-        <div>
-            {{$description}}
+        <div class="grid grid-flow-col grid-cols-7">
+            <div class="col-span-6">
+                {{$description}}
+            </div>
+            <div class="col-span-1">
+                
+
+                @if($completionBar===100)
+                    <span class="text-green-400 rounded-3xl px-5">{{$completionBar}}%</span>
+                @elseif($completionBar>50 && $completionBar<=80)
+                    <span class="text-amber-400 rounded-3xl px-5">{{$completionBar}}%</span>
+                @elseif($completionBar>0 && $completionBar<=50)
+                    <span class="text-blue-600  rounded-3xl px-5">{{$completionBar}}%</span>
+                @else
+                    <span class="text-red-600 rounded-3xl px-5">{{$completionBar}}%</span>
+                @endif
+            </div>
         </div>
 
         {{--Project Footer--}}

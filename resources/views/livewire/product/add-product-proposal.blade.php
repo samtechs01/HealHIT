@@ -12,12 +12,11 @@
                 </x-slot:label>
                 <div> 
                     <x-mary-form wire:submit="submitProposal" class="w-[25vw] justify-self-center">
-                        <x-mary-input label="Project Name"  wire:model="projectName" type="text"
+                        <x-mary-input label="Project Name"  wire:model="productName" type="text"
                         class="bg-gray-50 border-none hover:border-blue-800 rounded-md text-zinc-400"/>
                         
-                        <x-mary-file label="Attach Proposal Form" wire:model.live="proposalForm" accept="application/pdf"
-                        class="border-none hover:border-blue-800 rounded-md text-zinc-400">
-                            <img src="{{$user->avatar ?? '/site-imgs/healhithubLogo.png'}}" alt="user-upload" class="w-full h-50 shadow-md"/>
+                        <x-mary-file label="Attach Proposal Form" wire:model.live="proposalForm" accept="application/pdf" hint="attach only pdf"
+                        class="border-none rounded-md text-zinc-400">
                         </x-mary-file>    
                         
                         <x-mary-select label="Select Assigned Supervisor" :options="$supervisorsMap" wire:model="selectedSupervisor" type="text"

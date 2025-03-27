@@ -48,7 +48,7 @@ class ShowProject extends BaseComponent
 
         return [
             ['key'=>'product_src','label'=>'Featured Image','class'=>'text-black text[16px'],
-            ['key'=>'title','label'=>'Custodian','class'=>'text-black text[16px'],
+            ['key'=>'title','label'=>'Product Name','class'=>'text-black text[16px'],
             ['key'=>'product_category','label'=>'Category','class'=>'text-black text[16px'],
             ['key'=>'custodian','label'=>'Custodian','class'=>'text-black text[16px'],
             ['key'=>'status','label'=>'Status','class'=>'text-black text[16px'],

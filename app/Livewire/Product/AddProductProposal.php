@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\ProductProposal;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Mary\Traits\Toast;
@@ -15,14 +16,14 @@ class AddProductProposal extends Component
     use WithFileUploads;
     use Toast;
 
-    public $projectName, $proposalForm; 
+    public $productName, $proposalForm; 
     public $supervisorsMap, $selectedSupervisor, $selectedProposalSeq;
     public $unverifiedProposalsMap, $verifiedProposalsMap;
     public bool $isValidated;
     public $user, $headers, $verifiedProposalHeaders;
 
     protected $rules = [
-        'projectName'=>['required'],
+        'productName'=>['required'],
         'proposalForm'=>['required','max:2000'],
         'selectedSupervisor'=>['required']
     ];
@@ -47,6 +48,7 @@ class AddProductProposal extends Component
 
     public function headers():array
     {
+
         /***
         'custodian'=>$proposal->students->id,
         'supervisor'=>$proposal->supervisor->name,
@@ -56,9 +58,9 @@ class AddProductProposal extends Component
         ****/
 
         return [
+            ['key'=>'productName','label'=>'Product Name','class'=>'text-black text[16px'],
             ['key'=>'custodian','label'=>'Custodian','class'=>'text-black text-[16px]'],
             ['key'=>'supervisor','label'=>'Supervisor','class'=>'text-black text-[16px]'],
-            ['key'=>'project','label'=>'Project','class'=>'text-black text-[16px]' ],
             ['key'=>'form','label'=>'Proposal Document','class'=>'text-black text-[16px]'],
              
         ];
@@ -76,9 +78,9 @@ class AddProductProposal extends Component
         ****/
 
         return [
+            ['key'=>'productName','label'=>'Product Name','class'=>'text-black text[16px'],
             ['key'=>'custodian','label'=>'Custodian','class'=>'text-black text[16px'],
             ['key'=>'supervisor','label'=>'Supervisor','class'=>'text-black text[16px'],
-            ['key'=>'project','label'=>'Project','class'=>'text-black text[16px'],
             ['key'=>'form','label'=>'Proposal Document','class'=>'text-black text[16px'],
             ['key'=>'activation','label'=>'Activation','class'=>'text-black text[16px'],
         ];
@@ -109,18 +111,19 @@ class AddProductProposal extends Component
     public function submitProposal()
     { 
         $this->validate();
-        $proposalFormPath = $this->proposalForm->storeAs('product-proposal',$this->proposalForm->getClientOriginalName(),'public');
+        //$proposalFormPath = $this->proposalForm->storeAs('product-proposal',$this->proposalForm->getClientOriginalName(),'public');
+        $fileUuid= (string) Str::uuid();
+        $proposalFormPath = $this->proposalForm->storeAs('product-proposal/'.$fileUuid.'.pdf');
         $this->isValidated =false;
         ProductProposal::create([
             'supervisor_id'=>$this->selectedSupervisor,
             'student_id'=>$this->user->id,
-            'project_name'=>$this->projectName,
+            'project_name'=>$this->productName,
             'proposal_form'=>$proposalFormPath,
             'is_validated'=>$this->isValidated
         ]);
-        $this->success('Successful proposal report submission', position:'toast-bottom');
-        return redirect()->to('/dashboard/product/add-proposal');
-        
+        $this->success('Successful proposal report submission', position:'toast-top');
+        return redirect()->route('add-proposal');
     }
 
     public function getUnverifiedProposalsMap()
@@ -135,9 +138,9 @@ class AddProductProposal extends Component
             if(!$proposal->is_validated)
             {
             $map[]=[
+                'productName'=>$proposal->project_name,
                 'custodian'=>$proposal->student->name,
                 'supervisor'=>$proposal->supervisor->name,
-                'project'=>$proposal->project_name,
                 'form'=>$proposal->proposal_form
             ];
             }
@@ -160,9 +163,9 @@ class AddProductProposal extends Component
                 $productCount = Product::where('product_proposal_id',$proposal->id)->count();
                 $map[]=[
                     'id'=>$proposal->id,
+                    'productName'=>$proposal->project_name,
                     'custodian'=>$proposal->student->name,
                     'supervisor'=>$proposal->supervisor->name,
-                    'project'=>$proposal->project_name,
                     'productCount'=>$productCount,
                     'form'=>$proposal->proposal_form
                 ];

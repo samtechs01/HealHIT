@@ -1,8 +1,8 @@
 <div class="justify-self-start w-[70vw]">
     {{-- Only Assigns A Role To A User --}}
     <div class="pb-5 justify-self-center">
-        <x-page-heading textA="HIT HUB" textB="Research Projects"/>
-        <div class="grid justify-self-center">List Of The HIT HUB Projects In Progress</div>
+        <x-page-heading textA="Available" textB="Products"/>
+        <div class="grid justify-self-center">List of Projects</div>
     </div>
     <div>
         <x-mary-tabs wire:model.live="stagedProjects">

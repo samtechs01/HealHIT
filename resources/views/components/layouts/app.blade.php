@@ -42,17 +42,13 @@
             {{-- Right side actions --}}
             <x-slot:actions>
                 <x-mary-menu class="hidden md:static md:grid grid-flow-col  md:gap-12">
-                    <x-mary-menu-item title="Home" link="/" wire:navigate/>
-                    <x-mary-menu-item title="Prescriptions" link="###"/>
-                    <x-mary-menu-item title="About" link="###"/>
                     <x-mary-menu-item>
                         {{-- Brand --}}
                         <div class="absolute top-[-10px] left-0 h-[60px] w-[70px]">
                             <img class="" src="{{asset('site-imgs/healhithubLogo.png')}}" alt="evres-logo"/>
                         </div>
                     </x-mary-menu-item>
-                    <x-mary-menu-item title="Alumni-Consultancy" link="###"/>
-
+                    <x-mary-menu-item title="Home" link="/" wire:navigate/>
                     @if(auth()->user())
 
                     @else
@@ -71,9 +67,6 @@
                  class="absolute z-index-90 right-3 top-8 grid grid-flow-row 
                  w-[30vw] md:hidden">
                     <x-mary-menu-item title="Home" link="/dashboard"/>
-                    <x-mary-menu-item title="Prescriptions" link="/prescriptions"/>
-                    <x-mary-menu-item title="About" link="/about"/>
-                    <x-mary-menu-item title="Alumni-Consultancy" link="/alumni-consultancy"/>
                     @if(auth()->user())
 
                     @else
@@ -115,6 +108,7 @@
                         <x-mary-menu-item title="Show Roles" icon="o-envelope" link="/dashboard/admin/roles" wire:navigate />
                         <x-mary-menu-item title="Assign Roles" icon="o-envelope" link="/dashboard/admin/assign-role" wire:navigate/>
                         <x-mary-menu-item title="Add Admin" icon="o-envelope"  link="/dashboard/admin/add-admin" wire:navigate />
+                        <x-mary-menu-item title="Add Criterion" icon="o-envelope"  link="/dashboard/admin/add-criterion" wire:navigate />
                     </x-mary-menu-sub>
                     @endcan
                     @can('Product.Create')

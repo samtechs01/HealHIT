@@ -50,4 +50,9 @@ class Product extends Model
     {
         return $this->hasMany(Methodology::class);
     }
+
+    public function criterias():BelongsToMany
+    {
+        return $this->belongsToMany(Criteria::class);
+    }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Product;
 
+use App\Models\Criteria;
+use App\Models\CriteriaProduct;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -14,18 +16,23 @@ class InitiatedProject extends Component
 
     public $projectsMap;
     public $search, $user;
+    public $completionBar, $totalCriteria;
 
     public function mount()
     {
         $this->user=Auth::user();
         $this->search='';
+        $this->totalCriteria=Criteria::all()->count();
         $this->projectsMap=$this->getProjectsMap($this->user->id);
+        
+        
     }
 
     public function updated()
     {
-        
+        $this->totalCriteria=CriteriaProduct::all()->count();
         $this->projectsMap=$this->getProjectsMap($this->user->id);
+        
     }
 
     public function getProjectsMap($id)
@@ -42,14 +49,16 @@ class InitiatedProject extends Component
 
         foreach($projects as $project)
         {
-            
+            $completedCriteria=CriteriaProduct::where('product_id', $project->id)->count();
+            $completion= ($completedCriteria/$this->totalCriteria)*100;
             $map[]=[
                 'id'=>$project->id,
                 'featuredImgSrc'=>$project->product_src,
                 'title'=>$project->title,
                 'description'=>$project->description,
                 'category'=>$project->product_category,
-                'progress'=>$project->to_market
+                'progress'=>$project->to_market,
+                'completionBar'=>$completion
             ];
 
         }

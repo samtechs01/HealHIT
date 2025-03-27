@@ -26,6 +26,7 @@
                 category="{{$project['category']}}"
                 progress="{{$project['progress']}}"
                 :marketStatus="$project['progress']"
+                :completionBar="$project['completionBar']"
              />
         @empty
 

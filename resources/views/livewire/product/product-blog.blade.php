@@ -22,26 +22,39 @@
             {{$product->description}}
         </div>
     </div>
-    {{--Methodology--}}
+
+    {{--Criteria--}}
     <div  class="justify-self-start mb-[30px]">
-        <div  class="grid grid-flow-col gap-0" x-data="{openMethodologyStepForm:false}">
-            <x-mary-header title="Methodology" size="text-3xl" />
+        <div  class="grid grid-flow-col gap-0" 
+        x-data="{openEditCriteriaForm:false, showDate:false }"
+        x-init="$watch('selectedCriterionId', value=> showDate = (value === 21) ) ">
+            <x-mary-header title="Product Criteria" size="text-3xl" />
             @can('Product.Create')
                 <x-mary-icon name="m-pencil" class="w-7 h-7 cursor-pointer text-blue-600"
-                x-on:click="openMethodologyStepForm = !openMethodologyStepForm"/>    
+                x-on:click="openEditCriteriaForm = !openEditCriteriaForm"/>    
             @endcan
-            <div x-show="openMethodologyStepForm" x-on:click.outside="openMethodologyStepForm = false"
+
+            <div x-show="openEditCriteriaForm" x-on:click.outside="openEditCriteriaForm = false"
             class="relative">
-                <x-mary-form wire:submit="addStep" class="w-[25vw] justify-self-center absolute bg-white px-10 py-5 shadow-md opacity-95 rounded-md">
-                    <x-mary-input label="Specify Step No."  wire:model="stepNo" type="integer"
-                    class="bg-gray-50 border-none hover:border-blue-800 rounded-md text-zinc-400"/>
-                    <x-mary-input label="Step Name"  wire:model="stepName" type="text"
-                    class="bg-gray-50 border-none hover:border-blue-800 rounded-md text-zinc-400"/>
-                    <x-mary-textarea rows="6" label="Step Description"  wire:model="stepDescription" type="text"
-                    class="bg-gray-50 border-none hover:border-blue-800 rounded-md text-zinc-400"/>
-                                                
+                <x-mary-form wire:submit="addCriterionProduct" class="w-[25vw] justify-self-center absolute bg-white px-10 py-5 shadow-md opacity-95 rounded-md" >
+                    <x-mary-select label="Select Criterion No."  
+                    wire:model.live="selectedCriterionId" 
+                    x-model="selectedCriterionId" 
+                    :options="$criteriaMap"
+                    class="bg-gray-50 border-none hover:border-blue-800 rounded-md text-zinc-400" />
+                   {{ dump($selectedCriterionId) }}
+                    <div x-show="showDate">
+                        <x-mary-datetime  label="Select date" wire:model="criterionVal" icon="o-calendar"
+                        class="bg-gray-50 border-none hover:border-blue-800 rounded-md text-zinc-400"/>        
+                    </div>
+
+                    <div x-show="!showDate">
+                        <x-mary-textarea  rows="6" label="Your criterion description"  wire:model="criterionVal" type="text"
+                        class="bg-gray-50 border-none hover:border-blue-800 rounded-md text-zinc-400"/>  
+                    </div>
+                              
                     <div>
-                        <x-heal-hit-button label="Add Step" type="submit"/>
+                        <x-heal-hit-button label="Add Criterion Definition" type="submit"/>
                     </div>
                 </x-mary-form>
             </div>
@@ -50,17 +63,17 @@
 
     {{--Steps--}}
     <div>
-        @forelse ($methodologySteps as $methodologyStep)
+        @forelse ($criteriaDefinitions as $criteriaDefinition)
             <div class="mb-[30px]">
                 <div class="grid grid-flow-col grid-cols-8 mb-[30px] gap-0">
-                    <div class="col-span-2 font-bold text-2xl">{{$methodologyStep->step_no}}.  {{$methodologyStep->step_name}}</div>
+                    <div class="col-span-6 font-bold text-2xl">{{$criteriaDefinition['criteriaId']}}.{{$criteriaDefinition['criterionName']}}</div>
                     @can('Product.Create')
-                        <div class="col-span-6">
-                            <x-mary-icon name="m-trash" class="w-5 h-5 text-red-600 cursor-pointer" wire:click="deleteStep({{$methodologyStep->id}})"/>
+                        <div class="col-span-2">
+                            <x-mary-icon name="m-trash" class="w-5 h-5 text-red-600 cursor-pointer" wire:click="deleteCriterionProduct({{$criteriaDefinition['itemId']}})"/>
                         </div>
                     @endcan
                 </div>
-                <div>{{$methodologyStep->step_description}}</div>
+                <div>{{$criteriaDefinition['criterionValue']}}</div>
             </div>
         @empty
             No steps enlisted!!
